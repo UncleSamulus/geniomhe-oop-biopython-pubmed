@@ -1,0 +1,9 @@
+name: pubmed-explorer
+channels:
+  - bioconda
+  - defaults
+  - conda-forge
+dependencies:
+  - hvplot
+  - bioconda::biopython
+  
