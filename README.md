@@ -8,7 +8,7 @@ PubMed keyword search between two dates, export in csv file, and make a represen
   - Function for user input
   - Query constructor
   - API Query
-  - Save records as list (function)
+  - Save records as list
   - Save as CSV
     Columns:
     - PMCID
@@ -20,3 +20,15 @@ PubMed keyword search between two dates, export in csv file, and make a represen
 - [ ] Representations
   - [ ] Number of publication per year;
   - [ ] Network of keywords
+
+## Install
+
+```bash
+pip install -e .
+```
+
+## Unit testing
+
+```bash
+pytest --pyargs pubmed
+```

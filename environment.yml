@@ -4,6 +4,12 @@ channels:
   - defaults
   - conda-forge
 dependencies:
+  - python=3.11
   - hvplot
-  - bioconda::biopython
+  - anaconda::biopython
+  - pandas
+  - pytest
+  - jsonschema
+  - matplotlib
+  
   
