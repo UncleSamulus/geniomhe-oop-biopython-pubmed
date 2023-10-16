@@ -38,7 +38,7 @@ class Explorer:
     def extract_info(self, record, pmid):
         medline_citation = record["PubmedArticle"][0]["MedlineCitation"]
         keywords = list(
-            map(lambda keyword: str(keyword), medline_citation["KeywordList"])
+            map(lambda keyword: str(keyword), medline_citation["KeywordList"][0])
         )
         title = medline_citation["Article"]["ArticleTitle"]
         date = medline_citation["Article"]["ArticleDate"]
@@ -50,8 +50,10 @@ class Explorer:
             date = f"{date['Year']}-{date['Month']}-{date['Day']}"
         author_list = medline_citation["Article"]["AuthorList"]
         author = f"{author_list[0]['LastName']}, {author_list[0]['ForeName']}"
-        return pd.DataFrame(
-            dict(
-                pmid=pmid, title=title, main_author=author, date=date, keywords=keywords
-            )
+        return dict(
+            pmid=pmid,
+            title=title,
+            main_author=author,
+            date=date,
+            keywords=keywords,
         )

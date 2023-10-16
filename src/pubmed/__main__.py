@@ -13,13 +13,25 @@ def main():
     end_date = 2022
     query = "single cell"
     explorer = pubmed.explorer.Explorer()
-    df_parts = list(
+    data = list(
         map(
             lambda item: explorer.extract_info(item[1], item[0]),
             explorer.query(query, start_date, end_date),
         )
     )
-    df = pd.concat(df_parts)
+    data_series = dict(
+        pmid=[],
+        title=[],
+        main_author=[],
+        date=[],
+        keywords=[],
+    )
+
+    for row in data:
+        for key in row:
+            data_series[key].append(row[key])
+
+    df = pd.DataFrame(data_series)
     df.to_csv("test.csv")
 
 
