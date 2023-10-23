@@ -23,6 +23,7 @@ _Due date_: 15 min oral presentation on 2023-11-15.
 - [ ] Representations
   - [ ] Number of publication per year;
   - [ ] Network of keywords
+  - [ ] Network of authors
 
 ## Install
 
