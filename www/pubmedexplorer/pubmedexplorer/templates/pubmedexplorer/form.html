@@ -1,0 +1,7 @@
+<form action="{% url 'search' %}" method="post">
+    {% csrf_token %}
+    <fieldset>
+        <!-- TODO: Add time range and keyword input -->
+    </fieldset>
+    <input type="submit" value="Search">
+</form>
