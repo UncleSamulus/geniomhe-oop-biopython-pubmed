@@ -20,6 +20,7 @@ PubMed keyword search between two dates, export in csv file, and make a represen
 - [ ] Representations
   - [ ] Number of publication per year;
   - [ ] Network of keywords
+  - [ ] Network of authors
 
 ## Install
 
