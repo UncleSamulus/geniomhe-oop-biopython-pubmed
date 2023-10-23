@@ -1,14 +1,17 @@
 # PubMed
 
-PubMed keyword search between two dates, export in csv file, and make a representation of that using holoviz.
+> **General Guideline**: PubMed keyword search between two dates, export in csv file, and make a representation of that using holoviz.
 
-## Goals
+A project in Object Oriented Programming teaching unit at GENIOMHE Master 1 at Université Paris-Saclay, Université d'Évry val d'Essonne.
+
+_Due date_: 15 min oral presentation on 2023-11-15.
+
+## Milestones
 
 - [ ] Search PubMed between two dates for a specific keyword
   - Function for user input
   - Query constructor
   - API Query
-  - Save records as list
   - Save as CSV
     Columns:
     - PMCID
@@ -32,3 +35,12 @@ pip install -e .
 ```bash
 pytest --pyargs pubmed
 ```
+
+## Authors and acknowledgment
+
+- Abdou Jeylani
+- Benamad Kader Houssein
+- Naïa Périnelle
+- Shanthosh Muruganantham
+- Stéphanie Vincent
+- Samuel Ortion
