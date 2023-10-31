@@ -2,16 +2,15 @@ import pandas as pd
 
 import pubmed.explorer
 
-
 from Bio import Entrez
 
 Entrez.email = "samuel.ortion@etud.univ-evry.fr"
 
 
 def main():
-    start_date = 2020
+    start_date = 2010
     end_date = 2022
-    query = "single cell"
+    query = "cancer"
     explorer = pubmed.explorer.Explorer()
     data = list(
         map(
@@ -19,9 +18,12 @@ def main():
             explorer.query(query, start_date, end_date),
         )
     )
+    if None in data:
+        data.remove(None)
     data_series = dict(
         pmid=[],
         title=[],
+        doi=[],
         main_author=[],
         date=[],
         keywords=[],
@@ -32,7 +34,7 @@ def main():
             data_series[key].append(row[key])
 
     df = pd.DataFrame(data_series)
-    df.to_csv("test.csv")
+    df.to_csv("tmp/test.csv")
 
 
 if __name__ == "__main__":

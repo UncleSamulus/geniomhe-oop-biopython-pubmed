@@ -45,3 +45,7 @@ pytest --pyargs pubmed
 - Shanthosh Muruganantham
 - Stéphanie Vincent
 - Samuel Ortion
+
+## References
+
+- <https://github.com/guillaumelobet/citation-graph-pubmed>
