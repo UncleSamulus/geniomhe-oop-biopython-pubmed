@@ -3,3 +3,4 @@ numpy
 biopython
 django
 crossref-commons
+pygraphviz
