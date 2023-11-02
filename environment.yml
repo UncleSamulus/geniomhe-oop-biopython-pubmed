@@ -11,5 +11,5 @@ dependencies:
   - pytest
   - jsonschema
   - matplotlib
-  
-  
+  - pygraphviz
+  - networkx
