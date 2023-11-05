@@ -1,0 +1,23 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>PubMap - PubMed Exploration</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='stylesheets/style.css') }}">
+</head>
+<body>
+    <header>
+        <h1>PubMap</h1>
+    </header>
+    <script src="https://cdn.jsdelivr.net/npm/d3@7"></script>
+    <main>
+        <div id="dataviz"></div>
+        <script type="module" src="{{ url_for('static', filename='javascripts/graph.js') }}"></script>
+        <script type="module" src="{{ url_for('static', filename='javascripts/query.js') }}"></script>
+    </main>
+    <footer>
+        An Object Oriented Programming Project at GENIOMHE Bioinformatics Master at Université Paris-Saclay, Université d'Évry val d'Essonne.
+    </footer>
+</body>
+</html>
