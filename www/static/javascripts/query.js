@@ -1,9 +1,20 @@
-import { graph } from "./graph.js"
+import { graph } from "./graph.js";
 
-const url = "/api/map/30917603";
+let searchButton = document.getElementById("search-button");
+let searchInput = document.getElementById("search-input");
+let searchDepth = document.getElementById("search-depth");
 
-fetch(url)
+searchButton.addEventListener("click", () => {
+    let pmid = searchInput.value;
+    let depth = searchDepth.value;
+    const url = "/api/map/" + pmid;
+    fetch(url, {
+        depth: depth
+    })
     .then(response => response.json())
     .then(data => {
-        graph(data);
-    })
+            graph(data);
+        });
+    });
+
+

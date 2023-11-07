@@ -1,6 +1,7 @@
 import queue
 
 from Bio import Entrez
+import networkx as nx
 
 from .node import Node
 
@@ -115,3 +116,19 @@ class Explorer:
                     frontier.put(successor_node)
             iteration += 1
         return root
+    
+    def root_to_digraph(self, root: Node) -> nx.DiGraph:
+        """
+        Reconstruct a directed graph from the exploration node tree
+        """
+        G = nx.DiGraph()
+        q = queue.Queue()
+        current = root
+        q.put(current)
+        while not q.empty():
+            current = q.get()
+            for child in current.children:
+                q.put(child)
+                G.add_edge(current.data["pmid"], child.data["pmid"])
+        return G
+    
