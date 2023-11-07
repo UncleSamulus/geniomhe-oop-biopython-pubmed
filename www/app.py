@@ -4,15 +4,17 @@ from dotenv import load_dotenv, dotenv_values
 from flask import Flask
 from flask_caching import Cache
 from flask import render_template
+from flask import request
 
 import networkx as nx
 from networkx.readwrite import json_graph
 
 from pubmed.explorer import Explorer
-explorer = Explorer()
 
 from Bio import Entrez
+
 Entrez.email = "samuel.ortion@etud.univ-evry.fr"
+explorer = Explorer()
 
 load_dotenv()
 CONFIG = { **dotenv_values(".env") }
@@ -32,9 +34,10 @@ def test():
 @app.route("/api/map/<pmid>", methods=["GET"])
 @cache.cached(timeout=50)
 def get_citation_map(pmid):
-    DEPTH = 3
+    # Get depth from query string or default to 1
+    depth = int(request.args.get("depth", 1))
     app.logger.info("Breadth first searching PMID:%s", pmid)
-    root = explorer.breadth_first_exploration(pmid, max_depth=DEPTH, max_iterations=1_000)
+    root = explorer.breadth_first_exploration(pmid, max_depth=depth, max_iterations=1_000)
     app.logger.info("Done breadth first search")
     G = explorer.root_to_digraph(root)
     data = json_graph.node_link_data(G)

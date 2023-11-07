@@ -1,0 +1,21 @@
+---
+title: PubMed-Explorer
+subtitle: Explore NCBI Ressources with BioPython API 
+author:
+    - Abdou Jeylani
+    - Benamad Kader Houssein
+    - Naïa Périnelle
+    - Shanthosh Muruganantham
+    - Stéphanie Vincent
+    - Samuel Ortion
+date: November 15, 2023
+format:
+    revealjs:
+        theme: ["_extensions/metropolis-theme/metropolis.scss"]
+        toc: true
+        toc-depth: 1
+        menu: true
+        navigation-mode: vertical
+        embed-resources: true
+---
+
