@@ -1,8 +1,9 @@
-import { graph } from "./graph.js";
+import { citationGraph, trendGraph } from "./graph.js";
 
 let searchButton = document.getElementById("search-button");
 let searchInput = document.getElementById("search-input");
 let searchDepth = document.getElementById("search-depth");
+
 
 function searchCitationTree(pmid, depth) {
     const url = "/api/map/" + pmid;
@@ -11,7 +12,17 @@ function searchCitationTree(pmid, depth) {
     })
     .then(response => response.json())
     .then(data => {
-            graph(data);
+            citationGraph(data);
+        });
+}
+
+
+function searchTrend(pmid) {
+    const url = "/api/trend/test";
+    fetch(url)
+    .then(response => response.json())
+    .then(data => {
+            trendGraph(data);
         });
 }
 
@@ -31,3 +42,6 @@ searchInput.addEventListener("keyup", function(event) {
 });
 
 
+// (function() {
+//     searchTrend();
+// })();

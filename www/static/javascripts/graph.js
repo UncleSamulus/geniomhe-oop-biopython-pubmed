@@ -1,10 +1,10 @@
-function graph(data) {
+function citationGraph(data) {
 
     let margin = {top: 10, right: 30, bottom: 30, left: 40},
         width = 100 - margin.left - margin.right,
         height = 100 - margin.top - margin.bottom;
 
-    let svg = d3.select("#dataviz")
+    let svg = d3.select("#citation-graph")
         .append("svg")
         .append("g")
             .attr("transform",
@@ -46,9 +46,47 @@ function graph(data) {
             .attr("cx", function (d) { return d.x; })
             .attr("cy", function(d) { return d.y; });
         }
+}
 
+function trendGraph(timeseries) {
+    let margin = {top: 10, right: 30, bottom: 30, left: 40},
+        width = 100 - margin.left - margin.right,
+        height = 100 - margin.top - margin.bottom;
+
+    let svg = d3.select("#dataviz")
+        .append("svg")
+        .append("g")
+            .attr("transform",
+                    "translate(" + margin.left + "," + margin.top + ")");
+
+    let x = d3.scaleTime()
+        .domain(d3.extent(timeseries, function(d) { return d.date; }))
+        .range([ 0, width ]);
+
+    svg.append("g")
+        .attr("transform", "translate(0," + height + ")")
+        .call(d3.axisBottom(x));
+
+    
+    let y = d3.scaleLinear()
+        .domain([0, d3.max(timeseries, function(d) { return +d.count; })])
+        .range([ height, 0 ]);
+
+    svg.append("g")
+        .call(d3.axisLeft(y));
+
+    svg.append("path")
+        .datum(timeseries)
+        .attr("fill", "none")
+        .attr("stroke", "steelblue")
+        .attr("stroke-width", 1.5)
+        .attr("d", d3.line()
+                .x(function(d) { return x(d.date) })
+                .y(function(d) { return y(d.count) })
+            )
 }
 
 export {
-    graph
+    citationGraph,
+    trendGraph
 }
