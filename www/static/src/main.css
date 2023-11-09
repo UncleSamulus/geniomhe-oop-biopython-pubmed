@@ -1,0 +1,12 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+#dataviz {
+    width: 100vw;
+    height: 100vh;
+}
+
+#citation-graph {
+    min-width: 100px;
+    min-height: 100px;
+}

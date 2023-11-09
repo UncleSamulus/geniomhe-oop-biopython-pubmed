@@ -1,4 +1,8 @@
 pandas
 numpy
 biopython
-django
+crossref-commons
+pygraphviz
+flask
+Flask-Caching
+python-dotenv
