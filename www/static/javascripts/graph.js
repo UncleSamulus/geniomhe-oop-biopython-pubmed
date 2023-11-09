@@ -10,7 +10,6 @@ function citationGraph(data) {
             .attr("transform",
                     "translate(" + margin.left + "," + margin.top + ")");
 
-
     let link = svg
         .selectAll("line")
         .data(data.links)
@@ -25,6 +24,20 @@ function citationGraph(data) {
         .append("circle")
             .attr("r", 10)
             .style("fill", "#69b3a2")
+    
+    node.on("mouseover", function(d) {
+        d3.select(this).style("fill", "red");
+    })
+    node.on("mouseout", function(d) {
+        d3.select(this).style("fill", "#69b3a2")
+    })
+
+    node.on("click", function(d) {
+        const pmid = this.__data__.id;
+        const url = "https://pubmed.ncbi.nlm.nih.gov/" + pmid;
+        var win = window.open(url, '_blank');
+        win.focus();
+    })
 
     let simulation = d3.forceSimulation(data.nodes)
         .force("link", d3.forceLink()
