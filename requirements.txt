@@ -2,7 +2,12 @@ pandas
 numpy
 biopython
 crossref-commons
-pygraphviz
+#pygraphviz
+ipykernel
+nbformat
+nbclient
+jupyter-cache
+matplotlib
 flask
 Flask-Caching
 python-dotenv
