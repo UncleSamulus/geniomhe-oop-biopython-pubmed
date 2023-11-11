@@ -5,6 +5,20 @@ let searchInput = document.getElementById("search-input");
 let searchDepth = document.getElementById("search-depth");
 
 
+function searchKeyword(keyword) {
+    const url = "/api/search/";
+
+    fetch(url, {
+        q: keyword,   
+    })
+    .then(
+        response => response.json()
+    )
+    .then(data => {
+            console.log(data);
+    });
+}
+
 function searchCitationTree(pmid, depth) {
     const url = "/api/map/" + pmid;
     fetch(url, {

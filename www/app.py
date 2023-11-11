@@ -56,5 +56,14 @@ def get_trend_test():
     data = pd.read_csv("../tmp/pubmed_cancer_2010-2022.csv")
     return data["date"].to_json()
 
+@app.route("/api/search", methods=["GET"])
+def query_keyword():
+    keyword = request.args.get("q")
+    start_date = "2010"
+    end_date = "2022"
+    data = explorer.search_info_csv(keyword, start_date, end_date)
+    return data
+
+
 if __name__=='__main__':
     app.run(debug=True)

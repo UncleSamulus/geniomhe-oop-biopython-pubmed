@@ -8,6 +8,8 @@ nbformat
 nbclient
 jupyter-cache
 matplotlib
+seaborn
+hvplot
 flask
 Flask-Caching
 python-dotenv
