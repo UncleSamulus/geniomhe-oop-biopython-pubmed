@@ -58,7 +58,7 @@ def get_trend_test():
 
 @app.route("/api/search", methods=["GET"])
 def query_keyword():
-    keyword = request.args.get("keyword")
+    keyword = request.args.get("q")
     start_date = "2010"
     end_date = "2022"
     data = explorer.search_info_csv(keyword, start_date, end_date)

@@ -7,9 +7,9 @@ let searchDepth = document.getElementById("search-depth");
 
 function searchKeyword(keyword) {
     const url = "/api/search/";
+
     fetch(url, {
-        q: keyword
-    
+        q: keyword,   
     })
     .then(
         response => response.json()
