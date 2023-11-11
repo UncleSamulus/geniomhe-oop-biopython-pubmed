@@ -1,6 +1,6 @@
 function citationGraph(data) {
 
-    let margin = {top: 10, right: 30, bottom: 30, left: 40},
+    let margin = {top: 40, right: 40, bottom: 40, left: 40},
         width = 100 - margin.left - margin.right,
         height = 100 - margin.top - margin.bottom;
 
@@ -24,12 +24,25 @@ function citationGraph(data) {
         .append("circle")
             .attr("r", 10)
             .style("fill", "#69b3a2")
-    
+   
+    let tooltip = d3.select("body").append("div")
+            .attr("class", "tooltip-donut")
+            .style("opacity", 0);
     node.on("mouseover", function(d) {
         d3.select(this).style("fill", "red");
+        tooltip.transition()
+            .duration(50)
+            .style("opacity", 1);
+        tooltip.html(this.__data__.id)
+            .style("left", (d.pageX + 10) + "px")
+            .style("top", (d.pageY - 10) + "px");
+
     })
     node.on("mouseout", function(d) {
         d3.select(this).style("fill", "#69b3a2")
+        tooltip.transition()
+            .duration('50')
+            .style("opacity", 0);
     })
 
     node.on("click", function(d) {

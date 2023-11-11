@@ -2,6 +2,7 @@ import queue
 
 from Bio import Entrez
 import networkx as nx
+import pandas as pd
 
 from .node import Node
 
@@ -31,10 +32,8 @@ class Explorer:
 
         pmids = record["IdList"]
 
-        # Fetch records
-        for pmid in pmids:
-            
-            yield record
+        return pmids
+
 
     def efetch(self, pmid):
         handle = Entrez.efetch(db="pubmed", id=pmid, retmode="xml")
@@ -72,7 +71,31 @@ class Explorer:
             )
         else:
             return None
+        
+    def search_info_csv(self, keyword, start_date, end_date):
+        data = [
+            self.extract_info(self.efetch(pmid))
+            for pmid in self.query(keyword, start_date, end_date)
+        ]
+        if None in data:
+            data.remove(None)
+        data_series = dict(
+            pmid=[],
+            title=[],
+            doi=[],
+            main_author=[],
+            date=[],
+            keywords=[],
+        )
+
+        for row in data:
+            for key in row:
+                data_series[key].append(row[key])
+
+        df = pd.DataFrame(data_series)
+        return df.to_csv(index=False)
     
+
     def get_cited_pmids(self, efetch_record: dict) -> list[str]:
         reference_pmids = []
         try:
