@@ -41,6 +41,14 @@ class Explorer:
         handle.close()
         return record
 
+
+    def elink(self, pmid):
+        handle = Entrez.elink(dbfrom="pubmed", db="pmc", LinkName="pubmed_pmc_refs", from_uid=pmid)
+        record = Entrez.read(handle)
+        handle.close()
+        return record
+
+
     def extract_info(self, record):
         if "PubmedArticle" in record:
             medline_citation = record["PubmedArticle"][0]["MedlineCitation"]
@@ -96,7 +104,8 @@ class Explorer:
         return df.to_csv(index=False)
     
 
-    def get_cited_pmids(self, efetch_record: dict) -> list[str]:
+    def get_cited_pmids(self, pmid) -> list[str]:
+        efetch_record = self.efetch(pmid)
         reference_pmids = []
         try:
             reference_list = efetch_record["PubmedArticle"][0]["PubmedData"]["ReferenceList"][0]
@@ -105,17 +114,30 @@ class Explorer:
                     for pmid in article_id_list:
                         if pmid.attributes["IdType"] == "pubmed":
                                 reference_pmids.append(str(pmid))
-        except KeyError as e:
+        except KeyError:
             pass
-        except IndexError as e:
+        except IndexError:
             pass
         return reference_pmids
+    
+    def get_citing_pmids(self, pmid: str) -> list[str]:
+        elink_record = self.elink(pmid)
+        citing_pmids = []
+        if len(elink_record[0]["LinkSetDb"]) > 0:
+            citing_list = elink_record[0]["LinkSetDb"][0]["Link"]
+            for citing in citing_list:
+                citing_pmids.append(citing["Id"])
+        return citing_pmids
 
-    def breadth_first_exploration(self, pmid: str, max_depth: int = 5, max_iterations=50):
+    def breadth_first_exploration(self, pmid: str, max_depth: int = 5, max_iterations=50, sense="cited"):
         """
         Perform a breadth first search in the citation graph, 
         based on successive Entrez PubMed queries
         """
+        if sense == "cited":
+            get_successors = self.get_cited_pmids
+        elif sense == "citing":
+            get_successors = self.get_citing_pmids
         frontier: queue.Queue = queue.Queue()
         node = Node(dict(pmid=pmid, depth=0))
         root = node
@@ -130,8 +152,7 @@ class Explorer:
             if depth > max_depth:
                 continue
             # Expand
-            record = self.efetch(pmid)
-            successors = self.get_cited_pmids(record)
+            successors = get_successors(pmid)
             for successor in successors:
                 if successor not in explored:
                     successor_node = Node(dict(pmid=successor, depth=depth), [], node)

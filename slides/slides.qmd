@@ -16,24 +16,43 @@ format:
         toc-depth: 1
         menu: true
         navigation-mode: vertical
-        embed-resources: true
+        # embed-resources: true
 ---
+<style>
+.container{
+  display: flex;
+}
+.col {
+  flex: 1;
+}
+</style>
 
-# Biopython API
-
-![Hello](../toto.png)
-
-
----
 
 ```{python}
-import matplotlib.pyplot as plt
-
+import hvplot.pandas
 ```
-
----
-
 ```{python}
-print("hello")
-
+from Bio import Entrez
+Entrez.email = "geniomhe@ueve.onmicrosoft.com"
 ```
+
+
+# Citation Trees
+
+::: {.container}
+:::: {.col} 
+[![](media/lyfe_paper_Bartlett_Wong_2020.png)](https://pubmed.ncbi.nlm.nih.gov/32316364/)
+::::
+:::: {.col}
+- Citing: `Efetch`
+- Cited by: `Elink`
+:::
+:::
+::: {.container}
+:::: {.col}
+![_Citing_ Tree](media/citation_tree_cited32316364_d25.graphml.png){width=75%}
+::::
+:::: {.col}
+![_Cited by_ Tree](media/citation_tree_citing32316364_d25.graphml.png){width=75%}
+::::
+:::

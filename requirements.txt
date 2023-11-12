@@ -2,7 +2,7 @@ pandas
 numpy
 biopython
 crossref-commons
-#pygraphviz
+pygraphviz
 ipykernel
 nbformat
 nbclient
@@ -13,3 +13,4 @@ hvplot
 flask
 Flask-Caching
 python-dotenv
+click
