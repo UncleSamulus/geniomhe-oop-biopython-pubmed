@@ -119,3 +119,7 @@ Entrez.email = "geniomhe@ueve.onmicrosoft.com"
 \end{algorithmic}
 \end{algorithm}
 ```
+
+## Deeper _Cited by_ Tree `PMID:32316364`
+
+![_Cited by_ Tree](media/citation_tree_cited32316364_d6_i10000.graphml.png){width=100%}

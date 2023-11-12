@@ -12,7 +12,7 @@ def citation_tree(input, output):
 
 def citation_tree_layer(G):
     pos = nx.nx_agraph.graphviz_layout(G, prog="dot")
-    nx.draw(G, pos, with_labels=False, node_size=2, edge_color="black", alpha=0.75, width=0.2)
+    nx.draw(G, pos, with_labels=False, node_size=0.2, edge_color="black", alpha=0.5, width=0.1)
 
 if __name__ == "__main__":
     citation_tree()
