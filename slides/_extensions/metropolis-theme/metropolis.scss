@@ -16,7 +16,7 @@ $presentation-heading-font-weight: 400;
 $body-bg: #fafafa !default;
 $body-color: #000 !default;
 // $link-color: #EB811B !default;
-$selection-bg: #26351c;
+$selection-bg: #005595;
 
 // headings
 // $presentation-heading-font: "Palatino Linotype", "Book Antiqua", Palatino,
@@ -178,7 +178,7 @@ h2::after.title {
 }
 
 .reveal h2 {
-	background-color: #23373b;
+	background-color: #005595;
 	padding: 5px 0px 5px 10px;
 	color: #fafafa;
 	border-radius: 12px;

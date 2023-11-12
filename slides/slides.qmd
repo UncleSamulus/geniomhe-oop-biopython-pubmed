@@ -16,7 +16,30 @@ format:
         toc-depth: 1
         menu: true
         navigation-mode: vertical
+        scrollable: true
         # embed-resources: true
+        include-in-header:
+          text: |
+            <script>
+            MathJax = {
+              loader: {
+                load: ['[tex]/boldsymbol']
+              },
+              tex: {
+                tags: "all",
+                inlineMath: [['$','$'], ['\\(','\\)']],
+                displayMath: [['$$','$$'], ['\\[','\\]']],
+                processEscapes: true,
+                processEnvironments: true,
+                packages: {
+                  '[+]': ['boldsymbol']
+                }
+              }
+            };
+            </script>
+            <script src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-chtml-full.js" type="text/javascript"></script>
+filters:
+  - pseudocode
 ---
 <style>
 .container{
@@ -56,3 +79,43 @@ Entrez.email = "geniomhe@ueve.onmicrosoft.com"
 ![_Cited by_ Tree](media/citation_tree_citing32316364_d25.graphml.png){width=75%}
 ::::
 :::
+
+## Pseudocode
+
+```pseudocode
+#| label: alg-quicksort
+#| html-indent-size: "1.2em"
+#| html-comment-delimiter: "//"
+#| html-line-number: true
+#| html-line-number-punc: ":"
+#| html-no-end: false
+#| pdf-placement: "htb!"
+#| pdf-line-number: true
+
+\begin{algorithm}
+\caption{Breadth First Search}
+\begin{algorithmic}
+\Procedure {BFS}{$pmid$} \Comment{pmid: PubMed ID}
+\State $root \gets \text{Node}(pmid)$
+\State $root.\text{depth} \gets 0$
+\State $queue \gets \text{Queue}()$
+\State $queue.\text{enqueue}(root)$
+\State $visited \gets \{\}$
+\Repeat
+    \State $node \gets queue.\text{dequeue}()$
+    \State $visited.\text{add}(node)$
+    \State $depth \gets node.\text{depth}$ + 1
+    \State $citations \gets \text{Efetch}(node.\text{pmid})$
+    \For{$citation \in citations$}
+        \State $child \gets \text{Node}(citation)$
+        \State $child.\text{depth} \gets depth$
+        \State $node.\text{add}(child)$
+        \If{$child \notin visited$}
+            \State $queue.\text{enqueue}(child)$
+        \EndIf
+    \EndFor
+\Until{$queue.\text{isEmpty}()$ or $depth > MAX\_DEPTH$}
+\EndProcedure
+\end{algorithmic}
+\end{algorithm}
+```
