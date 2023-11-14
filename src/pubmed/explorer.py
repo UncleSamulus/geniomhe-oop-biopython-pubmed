@@ -61,7 +61,10 @@ class Explorer:
                 keywords = None
             title = medline_citation["Article"]["ArticleTitle"]
             date = medline_citation["Article"]["ArticleDate"]
-            doi = str(medline_citation["Article"]["ELocationID"][0])
+            if len(medline_citation["Article"]["ELocationID"]) > 0 :
+                doi = str(medline_citation["Article"]["ELocationID"][0])
+            else:
+                doi= None
             if len(date) == 0:
                 date = None
             else:
@@ -101,7 +104,7 @@ class Explorer:
                 data_series[key].append(row[key])
 
         df = pd.DataFrame(data_series)
-        return df.to_csv(index=False)
+        return df
     
 
     def get_cited_pmids(self, pmid) -> list[str]:
