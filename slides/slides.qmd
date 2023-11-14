@@ -80,7 +80,7 @@ Entrez.email = "geniomhe@ueve.onmicrosoft.com"
 ## What we did
 
 :::{.container}
-![`Elink`](media/Elink.png)
+![](media/Elink.png)
 :::
 :::{.container}
 ::::{.col}
@@ -91,7 +91,7 @@ Entrez.email = "geniomhe@ueve.onmicrosoft.com"
 ::::
 :::
 
-## Dataframe resulting
+## resulting Dataframe
 
 :::{.container}
 ::::{.col}
