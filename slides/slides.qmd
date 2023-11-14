@@ -123,3 +123,51 @@ Entrez.email = "geniomhe@ueve.onmicrosoft.com"
 ## Deeper _Cited by_ Tree `PMID:32316364`
 
 ![_Cited by_ Tree](media/citation_tree_cited32316364_d6_i10000.graphml.png){width=100%}
+
+
+# Search in PubMed for full text and number of citation
+
+:::{.container}
+::::{.col}
+![_PubMed article_](media/PubMed_article.png)
+::::
+::::{.col}
+![_PubMed Centra article_](media/PubMedCentral_article.png)
+::::
+:::
+
+## What we did
+
+:::{.container}
+![`Elink`](media/Elink.png)
+:::
+:::{.container}
+::::{.col}
+![](media/def_get_refs.png)
+::::
+::::{.col}
+![](media/get_full_text.png)
+::::
+:::
+
+## Dataframe resulting
+
+:::{.container}
+::::{.col}
+![`dataframe` head](media/dtHead.png)
+::::
+::::{.col}
+![_sorted_ `dataframe`](media/dfSorted.png){width=75%}
+::::
+:::
+
+## Plot
+
+:::{.container}
+::::{.col}
+![_`barplot`_](media/NbCitations.png)
+::::
+::::{.col}
+![_`Pie` chart_](media/NewsPaper.png)
+::::
+:::
