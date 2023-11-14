@@ -62,7 +62,7 @@ def query_keyword():
     start_date = "2010"
     end_date = "2022"
     data = explorer.search_info_csv(keyword, start_date, end_date)
-    return data
+    return data.to_csv(index=False)
 
 
 if __name__=='__main__':
