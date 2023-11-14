@@ -10,12 +10,14 @@ from Bio import Entrez
 
 Entrez.email = "samuel.ortion@etud.univ-evry.fr"
 
-pmid = "37615633"
-max_depth = 25
+pmid = "32316364"
+max_depth = 6
+max_iterations = 1000
+sense = "cited"
 
 explorer = explorer.Explorer()
 
-root = explorer.breadth_first_exploration(pmid, max_depth=max_depth, max_iterations=100)
+root = explorer.breadth_first_exploration(pmid, max_depth=max_depth, max_iterations=max_iterations, sense=sense)
 
 G = nx.DiGraph()
 q = queue.Queue()
@@ -27,4 +29,4 @@ while not q.empty():
         q.put(child)
         G.add_edge(current.data["pmid"], child.data["pmid"])
 
-nx.write_graphml(G, f"tmp/citation_tree_{pmid}_d{max_depth}.graphml")
+nx.write_graphml(G, f"tmp/citation_tree_{sense}{pmid}_d{max_depth}_i{max_iterations}.graphml")

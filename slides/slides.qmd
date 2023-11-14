@@ -16,6 +16,99 @@ format:
         toc-depth: 1
         menu: true
         navigation-mode: vertical
+        scrollable: true
         embed-resources: true
+      
+filters:
+  - pseudocode
 ---
+<style>
+.container{
+  display: flex;
+}
+.col {
+  flex: 1;
+}
+</style>
 
+# Citation Trees
+
+
+```{python}
+import hvplot.pandas
+```
+```{python}
+from Bio import Entrez
+Entrez.email = "geniomhe@ueve.onmicrosoft.com"
+```
+
+
+::: {.container}
+:::: {.col} 
+[![](media/lyfe_paper_Bartlett_Wong_2020.png)](https://pubmed.ncbi.nlm.nih.gov/32316364/)
+::::
+:::: {.col}
+- Citing: `Efetch`
+- Cited by: `Elink`
+:::
+:::
+::: {.container}
+:::: {.col}
+![_Citing_ Tree](media/citation_tree_cited32316364_d25.graphml.png){width=75%}
+::::
+:::: {.col}
+![_Cited by_ Tree](media/citation_tree_citing32316364_d25.graphml.png){width=75%}
+::::
+:::
+
+## Deeper _Cited by_ Tree `PMID:32316364`
+
+![_Cited by_ Tree](media/citation_tree_cited32316364_d6_i10000.graphml.png){width=100%}
+
+
+# Search in PubMed for full text and number of citation
+
+:::{.container}
+::::{.col}
+![_PubMed article_](media/PubMed_article.png)
+::::
+::::{.col}
+![_PubMed Central article_](media/PubMedCentral_article.png)
+::::
+:::
+
+## What we did
+
+:::{.container}
+![](media/Elink.png)
+:::
+:::{.container}
+::::{.col}
+![](media/def_get_refs.png)
+::::
+::::{.col}
+![](media/get_full_text.png)
+::::
+:::
+
+## resulting Dataframe
+
+:::{.container}
+::::{.col}
+![`dataframe` head](media/dtHead.png)
+::::
+::::{.col}
+![_sorted_ `dataframe`](media/dfSorted.png){width=75%}
+::::
+:::
+
+## Plot
+
+:::{.container}
+::::{.col}
+![_`barplot`_](media/NbCitations.png)
+::::
+::::{.col}
+![_`Pie` chart_](media/NewsPaper.png)
+::::
+:::

@@ -8,8 +8,8 @@ _Due date_: 15 min oral presentation on 2023-11-15.
 
 ## Milestones
 
-- [ ] Search PubMed between two dates for a specific keyword
-  - Function for user input
+- [x] Search PubMed between two dates for a specific keyword
+  - Function for user input (Naïa & Stéphanie)
   - Query constructor
   - API Query
   - Save as CSV
@@ -20,7 +20,7 @@ _Due date_: 15 min oral presentation on 2023-11-15.
     - Authors;
     - Date;
     - Journal;
-- [ ] Representations
+- Representations
   - [ ] Number of publication per year;
   - [ ] Network of keywords
   - [ ] Network of authors

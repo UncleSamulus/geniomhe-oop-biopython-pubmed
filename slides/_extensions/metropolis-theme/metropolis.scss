@@ -16,7 +16,7 @@ $presentation-heading-font-weight: 400;
 $body-bg: #fafafa !default;
 $body-color: #000 !default;
 // $link-color: #EB811B !default;
-$selection-bg: #26351c;
+$selection-bg: #005595;
 
 // headings
 // $presentation-heading-font: "Palatino Linotype", "Book Antiqua", Palatino,
@@ -52,7 +52,7 @@ $selection-bg: #26351c;
 // title slide
 .title-slide {
 	background-color: #fafafa;
-	border-top: 80px solid #fafafa;
+	border-top: 20px solid #fafafa;
 }
 
 h1.title {
@@ -62,7 +62,7 @@ h1.title {
 	font-weight: 400;
 	text-align: left;
 	margin-left: 15px;
-	padding-top: 80px;
+	padding-top: 20px;
 }
 p.subtitle {
 	// margin-top: -10px;
@@ -178,7 +178,7 @@ h2::after.title {
 }
 
 .reveal h2 {
-	background-color: #23373b;
+	background-color: #005595;
 	padding: 5px 0px 5px 10px;
 	color: #fafafa;
 	border-radius: 12px;
