@@ -1,10 +1,11 @@
 import queue
+import multiprocessing as mp
 
 from Bio import Entrez
 import networkx as nx
 import pandas as pd
 
-from .node import Node
+from .node import Node, BiNode
 
 class Explorer:
     def __init__(self):
@@ -108,28 +109,29 @@ class Explorer:
     
 
     def get_cited_pmids(self, pmid) -> list[str]:
-        efetch_record = self.efetch(pmid)
         reference_pmids = []
         try:
+            efetch_record = self.efetch(pmid)
             reference_list = efetch_record["PubmedArticle"][0]["PubmedData"]["ReferenceList"][0]
             for reference in reference_list["Reference"]:
                     article_id_list = reference["ArticleIdList"]
                     for pmid in article_id_list:
                         if pmid.attributes["IdType"] == "pubmed":
                                 reference_pmids.append(str(pmid))
-        except KeyError:
-            pass
-        except IndexError:
+        except Exception:
             pass
         return reference_pmids
     
     def get_citing_pmids(self, pmid: str) -> list[str]:
-        elink_record = self.elink(pmid)
         citing_pmids = []
-        if len(elink_record[0]["LinkSetDb"]) > 0:
-            citing_list = elink_record[0]["LinkSetDb"][0]["Link"]
-            for citing in citing_list:
-                citing_pmids.append(citing["Id"])
+        try:
+            elink_record = self.elink(pmid)
+            if len(elink_record[0]["LinkSetDb"]) > 0:
+                citing_list = elink_record[0]["LinkSetDb"][0]["Link"]
+                for citing in citing_list:
+                    citing_pmids.append(citing["Id"])
+        except Exception:
+            pass
         return citing_pmids
 
     def breadth_first_exploration(self, pmid: str, max_depth: int = 5, max_iterations=50, sense="cited"):
@@ -164,6 +166,39 @@ class Explorer:
             iteration += 1
         return root
     
+    def bidirectional_breadth_first_exploration(self, pmid: str, max_depth: int = 10, log=True):
+        q: queue.Queue = queue.Queue()
+        root: BiNode = BiNode(dict(pmid=pmid, depth=0))
+        q.put(root)
+        explored = set()
+        current_depth = 0
+        while not q.empty():
+            node = q.get()
+            pmid = node.data["pmid"]
+            explored.add(pmid)
+            depth = node.data["depth"]+1
+            if depth > current_depth:
+                current_depth = depth
+                if log:
+                    print(f"Depth {current_depth}")
+            if depth > max_depth:
+                continue
+            # Expand
+            successors = self.get_cited_pmids(pmid)
+            for successor in successors:
+                successor_node = BiNode(dict(pmid=successor, depth=depth), [], [node])
+                node.children.append(successor_node)
+                if successor not in explored:
+                    q.put(successor_node)
+            predecessors = self.get_citing_pmids(pmid)
+            for predecessor in predecessors:
+                predecessor_node = BiNode(dict(pmid=predecessor, depth=depth), [node], [])
+                node.parents.append(predecessor_node)
+                if predecessor not in explored:
+                    q.put(predecessor_node)
+        return root
+    
+ 
     def root_to_digraph(self, root: Node) -> nx.DiGraph:
         """
         Reconstruct a directed graph from the exploration node tree
@@ -179,3 +214,19 @@ class Explorer:
                 G.add_edge(current.data["pmid"], child.data["pmid"])
         return G
     
+    def biroot_to_digraph(self, root: BiNode) -> nx.DiGraph:
+        """
+        """
+        G = nx.DiGraph()
+        q = queue.Queue()
+        current = root
+        q.put(current)
+        while not q.empty():
+            current = q.get()
+            for child in current.children:
+                q.put(child)
+                G.add_edge(current.data["pmid"], child.data["pmid"])
+            for parent in current.parents:
+                q.put(parent)
+                G.add_edge(parent.data["pmid"], current.data["pmid"])
+        return G
